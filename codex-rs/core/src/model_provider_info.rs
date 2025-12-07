@@ -1,8 +1,8 @@
-//! Registry of model providers supported by Codex.
+//! Registry of model providers supported by Cognisync.
 //!
 //! Providers can be defined in two places:
-//!   1. Built-in defaults compiled into the binary so Codex works out-of-the-box.
-//!   2. User-defined entries inside `~/.codex/config.toml` under the `model_providers`
+//!   1. Built-in defaults compiled into the binary so Cognisync works out-of-the-box.
+//!   2. User-defined entries inside `~/.cognisync/config.toml` under the `model_providers`
 //!      key. These override or extend the defaults at runtime.
 
 use codex_api::Provider as ApiProvider;
@@ -129,11 +129,7 @@ impl ModelProviderInfo {
         &self,
         auth_mode: Option<AuthMode>,
     ) -> crate::error::Result<ApiProvider> {
-        let default_base_url = if matches!(auth_mode, Some(AuthMode::ChatGPT)) {
-            "https://chatgpt.com/backend-api/codex"
-        } else {
-            "https://api.openai.com/v1"
-        };
+        let default_base_url = "https://openrouter.ai/api/v1";
         let base_url = self
             .base_url
             .clone()
@@ -220,49 +216,38 @@ pub const OLLAMA_OSS_PROVIDER_ID: &str = "ollama";
 pub fn built_in_model_providers() -> HashMap<String, ModelProviderInfo> {
     use ModelProviderInfo as P;
 
-    // We do not want to be in the business of adjucating which third-party
-    // providers are bundled with Codex CLI, so we only include the OpenAI and
-    // open source ("oss") providers by default. Users are encouraged to add to
-    // `model_providers` in config.toml to add their own providers.
+    // Built-in providers for Cognisync via OpenRouter.
     [
         (
-            "openai",
+            "openrouter",
             P {
-                name: "OpenAI".into(),
-                // Allow users to override the default OpenAI endpoint by
-                // exporting `OPENAI_BASE_URL`. This is useful when pointing
-                // Codex at a proxy, mock server, or Azure-style deployment
-                // without requiring a full TOML override for the built-in
-                // OpenAI provider.
-                base_url: std::env::var("OPENAI_BASE_URL")
+                name: "OpenRouter".into(),
+                // Default to OpenRouter API endpoint
+                base_url: std::env::var("OPENROUTER_BASE_URL")
                     .ok()
-                    .filter(|v| !v.trim().is_empty()),
-                env_key: None,
-                env_key_instructions: None,
+                    .filter(|v| !v.trim().is_empty())
+                    .or(Some("https://openrouter.ai/api/v1".to_string())),
+                env_key: Some("OPENROUTER_API_KEY".to_string()),
+                env_key_instructions: Some(
+                    "Get your OpenRouter API key at https://openrouter.ai/keys".to_string()
+                ),
                 experimental_bearer_token: None,
-                wire_api: WireApi::Responses,
+                wire_api: WireApi::Chat,
                 query_params: None,
                 http_headers: Some(
-                    [("version".to_string(), env!("CARGO_PKG_VERSION").to_string())]
-                        .into_iter()
-                        .collect(),
-                ),
-                env_http_headers: Some(
                     [
-                        (
-                            "OpenAI-Organization".to_string(),
-                            "OPENAI_ORGANIZATION".to_string(),
-                        ),
-                        ("OpenAI-Project".to_string(), "OPENAI_PROJECT".to_string()),
+                        ("HTTP-Referer".to_string(), "https://cognisync.ai".to_string()),
+                        ("X-Title".to_string(), "Cognisync CLI".to_string()),
                     ]
                     .into_iter()
                     .collect(),
                 ),
+                env_http_headers: None,
                 // Use global defaults for retry/timeout unless overridden in config.toml.
                 request_max_retries: None,
                 stream_max_retries: None,
                 stream_idle_timeout_ms: None,
-                requires_openai_auth: true,
+                requires_openai_auth: false,
             },
         ),
         (

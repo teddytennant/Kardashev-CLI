@@ -60,8 +60,8 @@ pub mod edit;
 pub mod profile;
 pub mod types;
 
-pub const OPENAI_DEFAULT_MODEL: &str = "gpt-5.1-codex-max";
-const OPENAI_DEFAULT_REVIEW_MODEL: &str = "gpt-5.1-codex-max";
+pub const COGNISYNC_DEFAULT_MODEL: &str = "nova";
+const COGNISYNC_DEFAULT_REVIEW_MODEL: &str = "nebula";
 
 /// Maximum number of bytes of the documentation that will be embedded. Larger
 /// files are *silently truncated* to this size so we do not take up too much of
@@ -195,11 +195,11 @@ pub struct Config {
     /// Token budget applied when storing tool/function outputs in the context manager.
     pub tool_output_token_limit: Option<usize>,
 
-    /// Directory containing all Codex state (defaults to `~/.codex` but can be
-    /// overridden by the `CODEX_HOME` environment variable).
+    /// Directory containing all Cognisync state (defaults to `~/.cognisync` but can be
+    /// overridden by the `COGNISYNC_HOME` environment variable).
     pub codex_home: PathBuf,
 
-    /// Settings that govern if and what will be written to `~/.codex/history.jsonl`.
+    /// Settings that govern if and what will be written to `~/.cognisync/history.jsonl`.
     pub history: History,
 
     /// Optional URI-based file opener. If set, citations to files in the model
@@ -654,7 +654,7 @@ pub struct ConfigToml {
     #[serde(default)]
     pub profiles: HashMap<String, ConfigProfile>,
 
-    /// Settings that govern if and what will be written to `~/.codex/history.jsonl`.
+    /// Settings that govern if and what will be written to `~/.cognisync/history.jsonl`.
     #[serde(default)]
     pub history: Option<History>,
 
@@ -1324,25 +1324,25 @@ impl Config {
 }
 
 fn default_model() -> String {
-    OPENAI_DEFAULT_MODEL.to_string()
+    COGNISYNC_DEFAULT_MODEL.to_string()
 }
 
 fn default_review_model() -> String {
-    OPENAI_DEFAULT_REVIEW_MODEL.to_string()
+    COGNISYNC_DEFAULT_REVIEW_MODEL.to_string()
 }
 
-/// Returns the path to the Codex configuration directory, which can be
-/// specified by the `CODEX_HOME` environment variable. If not set, defaults to
-/// `~/.codex`.
+/// Returns the path to the Cognisync configuration directory, which can be
+/// specified by the `COGNISYNC_HOME` environment variable. If not set, defaults to
+/// `~/.cognisync`.
 ///
-/// - If `CODEX_HOME` is set, the value will be canonicalized and this
+/// - If `COGNISYNC_HOME` is set, the value will be canonicalized and this
 ///   function will Err if the path does not exist.
-/// - If `CODEX_HOME` is not set, this function does not verify that the
+/// - If `COGNISYNC_HOME` is not set, this function does not verify that the
 ///   directory exists.
 pub fn find_codex_home() -> std::io::Result<PathBuf> {
-    // Honor the `CODEX_HOME` environment variable when it is set to allow users
+    // Honor the `COGNISYNC_HOME` environment variable when it is set to allow users
     // (and tests) to override the default location.
-    if let Ok(val) = std::env::var("CODEX_HOME")
+    if let Ok(val) = std::env::var("COGNISYNC_HOME")
         && !val.is_empty()
     {
         return PathBuf::from(val).canonicalize();
@@ -1354,7 +1354,7 @@ pub fn find_codex_home() -> std::io::Result<PathBuf> {
             "Could not find home directory",
         )
     })?;
-    p.push(".codex");
+    p.push(".cognisync");
     Ok(p)
 }
 
@@ -2928,7 +2928,7 @@ model_verbosity = "high"
     ///    (or in the config file itself)
     /// 3. as an entry in `config.toml`, e.g. `model = "o3"`
     /// 4. the default value for a required field defined in code, e.g.,
-    ///    `crate::flags::OPENAI_DEFAULT_MODEL`
+    ///    `crate::flags::COGNISYNC_DEFAULT_MODEL`
     ///
     /// Note that profiles are the recommended way to specify a group of
     /// configuration options together.
@@ -2949,7 +2949,7 @@ model_verbosity = "high"
         assert_eq!(
             Config {
                 model: "o3".to_string(),
-                review_model: OPENAI_DEFAULT_REVIEW_MODEL.to_string(),
+                review_model: COGNISYNC_DEFAULT_REVIEW_MODEL.to_string(),
                 model_context_window: Some(200_000),
                 model_auto_compact_token_limit: Some(180_000),
                 model_provider_id: "openai".to_string(),
@@ -3024,7 +3024,7 @@ model_verbosity = "high"
         )?;
         let expected_gpt3_profile_config = Config {
             model: "gpt-3.5-turbo".to_string(),
-            review_model: OPENAI_DEFAULT_REVIEW_MODEL.to_string(),
+            review_model: COGNISYNC_DEFAULT_REVIEW_MODEL.to_string(),
             model_context_window: Some(16_385),
             model_auto_compact_token_limit: Some(14_746),
             model_provider_id: "openai-chat-completions".to_string(),
@@ -3114,7 +3114,7 @@ model_verbosity = "high"
         )?;
         let expected_zdr_profile_config = Config {
             model: "o3".to_string(),
-            review_model: OPENAI_DEFAULT_REVIEW_MODEL.to_string(),
+            review_model: COGNISYNC_DEFAULT_REVIEW_MODEL.to_string(),
             model_context_window: Some(200_000),
             model_auto_compact_token_limit: Some(180_000),
             model_provider_id: "openai".to_string(),
@@ -3190,7 +3190,7 @@ model_verbosity = "high"
         )?;
         let expected_gpt5_profile_config = Config {
             model: "gpt-5.1".to_string(),
-            review_model: OPENAI_DEFAULT_REVIEW_MODEL.to_string(),
+            review_model: COGNISYNC_DEFAULT_REVIEW_MODEL.to_string(),
             model_context_window: Some(272_000),
             model_auto_compact_token_limit: Some(244_800),
             model_provider_id: "openai".to_string(),

@@ -51,7 +51,7 @@ pub struct ModelUpgrade {
     pub migration_config_key: String,
 }
 
-/// Metadata describing a Codex-supported model.
+/// Metadata describing a Cognisync-supported model.
 #[derive(Debug, Clone, Deserialize, Serialize, TS, JsonSchema, PartialEq)]
 pub struct ModelPreset {
     /// Stable identifier for the preset.
@@ -115,7 +115,7 @@ pub enum ConfigShellToolType {
 #[derive(Debug, Serialize, Deserialize, Clone, Copy, PartialEq, Eq, TS, JsonSchema)]
 pub struct ClientVersion(pub i32, pub i32, pub i32);
 
-/// Model metadata returned by the Codex backend `/models` endpoint.
+/// Model metadata returned by the Cognisync backend `/models` endpoint.
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq, TS, JsonSchema)]
 pub struct ModelInfo {
     pub slug: String,
