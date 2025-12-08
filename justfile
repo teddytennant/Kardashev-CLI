@@ -1,31 +1,31 @@
-set working-directory := "codex-rs"
+set working-directory := "kardashev-rs"
 set positional-arguments
 
 # Display help
 help:
     just -l
 
-# `codex`
-alias c := codex
-codex *args:
-    cargo run --bin codex -- "$@"
+# `kardashev`
+alias c := kardashev
+kardashev *args:
+    cargo run --bin kardashev -- "$@"
 
-# `codex exec`
+# `kardashev exec`
 exec *args:
-    cargo run --bin codex -- exec "$@"
+    cargo run --bin kardashev -- exec "$@"
 
-# `codex tui`
+# `kardashev tui`
 tui *args:
-    cargo run --bin codex -- tui "$@"
+    cargo run --bin kardashev -- tui "$@"
 
 # Run the CLI version of the file-search crate.
 file-search *args:
-    cargo run --bin codex-file-search -- "$@"
+    cargo run --bin kardashev-file-search -- "$@"
 
 # Build the CLI and run the app-server test client
 app-server-test-client *args:
-    cargo build -p codex-cli
-    cargo run -p codex-app-server-test-client -- --codex-bin ./target/debug/codex "$@"
+    cargo build -p kardashev-cli
+    cargo run -p kardashev-app-server-test-client -- --kardashev-bin ./target/debug/kardashev "$@"
 
 # format code
 fmt:
@@ -50,4 +50,4 @@ test:
 
 # Run the MCP server
 mcp-server-run *args:
-    cargo run -p codex-mcp-server -- "$@"
+    cargo run -p kardashev-mcp-server -- "$@"

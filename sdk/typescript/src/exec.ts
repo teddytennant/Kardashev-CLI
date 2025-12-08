@@ -37,7 +37,7 @@ export type CodexExecArgs = {
 };
 
 const INTERNAL_ORIGINATOR_ENV = "CODEX_INTERNAL_ORIGINATOR_OVERRIDE";
-const TYPESCRIPT_SDK_ORIGINATOR = "codex_sdk_ts";
+const TYPESCRIPT_SDK_ORIGINATOR = "kardashev_sdk_ts";
 
 export class CodexExec {
   private executablePath: string;

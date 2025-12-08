@@ -48,7 +48,7 @@ Sample output:
 {"type":"turn.started"}
 {"type":"item.completed","item":{"id":"item_0","type":"reasoning","text":"**Searching for README files**"}}
 {"type":"item.started","item":{"id":"item_1","type":"command_execution","command":"bash -lc ls","aggregated_output":"","status":"in_progress"}}
-{"type":"item.completed","item":{"id":"item_1","type":"command_execution","command":"bash -lc ls","aggregated_output":"2025-09-11\nAGENTS.md\nCHANGELOG.md\ncliff.toml\ncodex-cli\ncodex-rs\ndocs\nexamples\nflake.lock\nflake.nix\nLICENSE\nnode_modules\nNOTICE\npackage.json\npnpm-lock.yaml\npnpm-workspace.yaml\nPNPM.md\nREADME.md\nscripts\nsdk\ntmp\n","exit_code":0,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_1","type":"command_execution","command":"bash -lc ls","aggregated_output":"2025-09-11\nAGENTS.md\nCHANGELOG.md\ncliff.toml\nkardashev-cli\nkardashev-rs\ndocs\nexamples\nflake.lock\nflake.nix\nLICENSE\nnode_modules\nNOTICE\npackage.json\npnpm-lock.yaml\npnpm-workspace.yaml\nPNPM.md\nREADME.md\nscripts\nsdk\ntmp\n","exit_code":0,"status":"completed"}}
 {"type":"item.completed","item":{"id":"item_2","type":"reasoning","text":"**Checking repository root for README**"}}
 {"type":"item.completed","item":{"id":"item_3","type":"agent_message","text":"Yep — there’s a `README.md` in the repository root."}}
 {"type":"turn.completed","usage":{"input_tokens":24763,"cached_input_tokens":24448,"output_tokens":122}}
@@ -78,7 +78,7 @@ Sample schema:
 codex exec "Extract details of the project" --output-schema ~/schema.json
 ...
 
-{"project_name":"Codex CLI","programming_languages":["Rust","TypeScript","Shell"]}
+{"project_name":"Kardashev CLI","programming_languages":["Rust","TypeScript","Shell"]}
 ```
 
 Combine `--output-schema` with `-o` to only print the final JSON output. You can also pass a file path to `-o` to save the JSON output to a file.
@@ -105,10 +105,10 @@ codex exec --model gpt-5.1 --json resume --last "Fix use-after-free issues"
 
 ## Authentication
 
-By default, `codex exec` will use the same authentication method as Codex CLI and VSCode extension. You can override the api key by setting the `CODEX_API_KEY` environment variable.
+By default, `codex exec` will use the same authentication method as Kardashev CLI and VSCode extension. You can override the api key by setting the `KARDASHEV_API_KEY` environment variable.
 
 ```shell
-CODEX_API_KEY=your-api-key-here codex exec "Fix merge conflict"
+KARDASHEV_API_KEY=your-api-key-here codex exec "Fix merge conflict"
 ```
 
-NOTE: `CODEX_API_KEY` is only supported in `codex exec`.
+NOTE: `KARDASHEV_API_KEY` is only supported in `codex exec`.

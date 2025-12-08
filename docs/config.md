@@ -23,13 +23,13 @@ Codex supports several mechanisms for setting config values:
   - If `value` cannot be parsed as a valid TOML value, it is treated as a string value. This means that `-c model='"o3"'` and `-c model=o3` are equivalent.
     - In the first case, the value is the TOML string `"o3"`, while in the second the value is `o3`, which is not valid TOML and therefore treated as the TOML string `"o3"`.
     - Because quotes are interpreted by one's shell, `-c key="true"` will be correctly interpreted in TOML as `key = true` (a boolean) and not `key = "true"` (a string). If for some reason you needed the string `"true"`, you would need to use `-c key='"true"'` (note the two sets of quotes).
-- The `$CODEX_HOME/config.toml` configuration file where the `CODEX_HOME` environment value defaults to `~/.codex`. (Note `CODEX_HOME` will also be where logs and other Codex-related information are stored.)
+- The `$KARDASHEV_HOME/config.toml` configuration file where the `KARDASHEV_HOME` environment value defaults to `~/.kardashev`. (Note `KARDASHEV_HOME` will also be where logs and other Codex-related information are stored.)
 
 Both the `--config` flag and the `config.toml` file support the following options:
 
 ## Feature flags
 
-Optional and experimental capabilities are toggled via the `[features]` table in `$CODEX_HOME/config.toml`. If you see a deprecation notice mentioning a legacy key (for example `experimental_use_exec_command_tool`), move the setting into `[features]` or pass `--enable <feature>`.
+Optional and experimental capabilities are toggled via the `[features]` table in `$KARDASHEV_HOME/config.toml`. If you see a deprecation notice mentioning a legacy key (for example `experimental_use_exec_command_tool`), move the setting into `[features]` or pass `--enable <feature>`.
 
 ```toml
 [features]
@@ -96,7 +96,7 @@ wire_api = "chat"
 query_params = {}
 ```
 
-Note this makes it possible to use Codex CLI with non-OpenAI models, so long as they use a wire API that is compatible with the OpenAI chat completions API. For example, you could define the following provider to use Codex CLI with Ollama running locally:
+Note this makes it possible to use Kardashev CLI with non-OpenAI models, so long as they use a wire API that is compatible with the OpenAI chat completions API. For example, you could define the following provider to use Kardashev CLI with Ollama running locally:
 
 ```toml
 [model_providers.ollama]
@@ -244,7 +244,7 @@ model_supports_reasoning_summaries = true
 
 The size of the context window for the model, in tokens.
 
-In general, Codex knows the context window for the most common OpenAI models, but if you are using a new model with an old version of the Codex CLI, then you can use `model_context_window` to tell Codex what value to use to determine how much context is left during a conversation.
+In general, Codex knows the context window for the most common OpenAI models, but if you are using a new model with an old version of the Kardashev CLI, then you can use `model_context_window` to tell Codex what value to use to determine how much context is left during a conversation.
 
 ### oss_provider
 
@@ -414,7 +414,7 @@ inherit = "none"
 set = { PATH = "/usr/bin", MY_FLAG = "1" }
 ```
 
-Currently, `CODEX_SANDBOX_NETWORK_DISABLED=1` is also added to the environment, assuming network is disabled. This is not configurable.
+Currently, `KARDASHEV_SANDBOX_NETWORK_DISABLED=1` is also added to the environment, assuming network is disabled. This is not configurable.
 
 ## MCP integration
 
@@ -437,7 +437,7 @@ command = "npx"
 args = ["-y", "mcp-server"]
 # Optional: propagate additional env vars to the MCP server.
 # A default whitelist of env vars will be propagated to the MCP server.
-# https://github.com/openai/codex/blob/main/codex-rs/rmcp-client/src/utils.rs#L82
+# https://github.com/openai/codex/blob/main/kardashev-rs/rmcp-client/src/utils.rs#L82
 env = { "API_KEY" = "value" }
 # or
 [mcp_servers.server_name.env]
@@ -548,9 +548,9 @@ log_user_prompt = false    # defaults to false; redact prompt text unless explic
 ```
 
 Codex tags every exported event with `service.name = $ORIGINATOR` (the same
-value sent in the `originator` header, `codex_cli_rs` by default), the CLI
+value sent in the `originator` header, `kardashev_cli_rs` by default), the CLI
 version, and an `env` attribute so downstream collectors can distinguish
-dev/staging/prod traffic. Only telemetry produced inside the `codex_otel`
+dev/staging/prod traffic. Only telemetry produced inside the `kardashev_otel`
 crate—the events listed below—is forwarded to the exporter.
 
 ### Event catalog
@@ -635,7 +635,7 @@ Set `otel.exporter` to control where events go:
   ```
 
 Both OTLP exporters accept an optional `tls` block so you can trust a custom CA
-or enable mutual TLS. Relative paths are resolved against `~/.codex/`:
+or enable mutual TLS. Relative paths are resolved against `~/.kardashev/`:
 
 ```toml
 [otel]
@@ -739,10 +739,10 @@ if __name__ == "__main__":
     sys.exit(main())
 ```
 
-To have Codex use this script for notifications, you would configure it via `notify` in `~/.codex/config.toml` using the appropriate path to `notify.py` on your computer:
+To have Codex use this script for notifications, you would configure it via `notify` in `~/.kardashev/config.toml` using the appropriate path to `notify.py` on your computer:
 
 ```toml
-notify = ["python3", "/Users/mbolin/.codex/notify.py"]
+notify = ["python3", "/Users/mbolin/.kardashev/notify.py"]
 ```
 
 > [!NOTE]
@@ -818,11 +818,11 @@ Users can specify config values at multiple levels. Order of precedence is as fo
 1. custom command-line argument, e.g., `--model o3`
 2. as part of a profile, where the `--profile` is specified via a CLI (or in the config file itself)
 3. as an entry in `config.toml`, e.g., `model = "o3"`
-4. the default value that comes with Codex CLI (i.e., Codex CLI defaults to `gpt-5.1-codex-max`)
+4. the default value that comes with Kardashev CLI (i.e., Kardashev CLI defaults to `gpt-5.1-codex-max`)
 
 ### history
 
-By default, Codex CLI records messages sent to the model in `$CODEX_HOME/history.jsonl`. Note that on UNIX, the file permissions are set to `o600`, so it should only be readable and writable by the owner.
+By default, Kardashev CLI records messages sent to the model in `$KARDASHEV_HOME/history.jsonl`. Note that on UNIX, the file permissions are set to `o600`, so it should only be readable and writable by the owner.
 
 To disable this behavior, configure `[history]` as follows:
 
@@ -918,13 +918,13 @@ cli_auth_credentials_store = "keyring"
 
 Valid values:
 
-- `file` (default) – Store credentials in `auth.json` under `$CODEX_HOME`.
+- `file` (default) – Store credentials in `auth.json` under `$KARDASHEV_HOME`.
 - `keyring` – Store credentials in the operating system keyring via the [`keyring` crate](https://crates.io/crates/keyring); the CLI reports an error if secure storage is unavailable. Backends by OS:
   - macOS: macOS Keychain
   - Windows: Windows Credential Manager
   - Linux: DBus‑based Secret Service, the kernel keyutils, or a combination
   - FreeBSD/OpenBSD: DBus‑based Secret Service
-- `auto` – Save credentials to the operating system keyring when available; otherwise, fall back to `auth.json` under `$CODEX_HOME`.
+- `auto` – Save credentials to the operating system keyring when available; otherwise, fall back to `auth.json` under `$KARDASHEV_HOME`.
 
 ## Config reference
 

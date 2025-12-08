@@ -14,7 +14,7 @@ jobs:
     name: Detect changed areas
     runs-on: ubuntu-24.04
     outputs:
-      codex: ${{ steps.detect.outputs.codex }}
+      kardashev: ${{ steps.detect.outputs.kardashev }}
       workflows: ${{ steps.detect.outputs.workflows }}
     steps:
       - uses: actions/checkout@v6
@@ -33,17 +33,17 @@ jobs:
             mapfile -t files < <(git diff --name-only --no-renames "$BASE_SHA"...HEAD)
           else
             # On push / manual runs, default to running everything
-            files=("codex-rs/force" ".github/force")
+            files=("kardashev-rs/force" ".github/force")
           fi
 
-          codex=false
+          kardashev=false
           workflows=false
           for f in "${files[@]}"; do
-            [[ $f == codex-rs/* ]] && codex=true
+            [[ $f == kardashev-rs/* ]] && kardashev=true
             [[ $f == .github/* ]] && workflows=true
           done
 
-          echo "codex=$codex" >> "$GITHUB_OUTPUT"
+          echo "kardashev=$kardashev" >> "$GITHUB_OUTPUT"
           echo "workflows=$workflows" >> "$GITHUB_OUTPUT"
 
   # --- CI that doesn't need specific targets ---------------------------------
@@ -51,10 +51,10 @@ jobs:
     name: Format / etc
     runs-on: ubuntu-24.04
     needs: changed
-    if: ${{ needs.changed.outputs.codex == 'true' || needs.changed.outputs.workflows == 'true' || github.event_name == 'push' }}
+    if: ${{ needs.changed.outputs.kardashev == 'true' || needs.changed.outputs.workflows == 'true' || github.event_name == 'push' }}
     defaults:
       run:
-        working-directory: codex-rs
+        working-directory: kardashev-rs
     steps:
       - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@1.90
@@ -69,10 +69,10 @@ jobs:
     name: cargo shear
     runs-on: ubuntu-24.04
     needs: changed
-    if: ${{ needs.changed.outputs.codex == 'true' || needs.changed.outputs.workflows == 'true' || github.event_name == 'push' }}
+    if: ${{ needs.changed.outputs.kardashev == 'true' || needs.changed.outputs.workflows == 'true' || github.event_name == 'push' }}
     defaults:
       run:
-        working-directory: codex-rs
+        working-directory: kardashev-rs
     steps:
       - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@1.90
@@ -90,10 +90,10 @@ jobs:
     timeout-minutes: 30
     needs: changed
     # Keep job-level if to avoid spinning up runners when not needed
-    if: ${{ needs.changed.outputs.codex == 'true' || needs.changed.outputs.workflows == 'true' || github.event_name == 'push' }}
+    if: ${{ needs.changed.outputs.kardashev == 'true' || needs.changed.outputs.workflows == 'true' || github.event_name == 'push' }}
     defaults:
       run:
-        working-directory: codex-rs
+        working-directory: kardashev-rs
     env:
       # Speed up repeated builds across CI runs by caching compiled objects (non-Windows).
       USE_SCCACHE: ${{ startsWith(matrix.runner, 'windows') && 'false' || 'true' }}
@@ -155,7 +155,7 @@ jobs:
 
       - name: Compute lockfile hash
         id: lockhash
-        working-directory: codex-rs
+        working-directory: kardashev-rs
         shell: bash
         run: |
           set -euo pipefail
@@ -337,10 +337,10 @@ jobs:
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 30
     needs: changed
-    if: ${{ needs.changed.outputs.codex == 'true' || needs.changed.outputs.workflows == 'true' || github.event_name == 'push' }}
+    if: ${{ needs.changed.outputs.kardashev == 'true' || needs.changed.outputs.workflows == 'true' || github.event_name == 'push' }}
     defaults:
       run:
-        working-directory: codex-rs
+        working-directory: kardashev-rs
     env:
       # Speed up repeated builds across CI runs by caching compiled objects (non-Windows).
       USE_SCCACHE: ${{ startsWith(matrix.runner, 'windows') && 'false' || 'true' }}
@@ -408,7 +408,7 @@ jobs:
           brew --version
 
       # Some integration tests rely on DotSlash being installed.
-      # See https://github.com/openai/codex/pull/7617.
+      # See https://github.com/openai/kardashev/pull/7617.
       - name: Install DotSlash
         uses: facebook/install-dotslash@v2
 
@@ -426,7 +426,7 @@ jobs:
 
       - name: Compute lockfile hash
         id: lockhash
-        working-directory: codex-rs
+        working-directory: kardashev-rs
         shell: bash
         run: |
           set -euo pipefail
@@ -555,7 +555,7 @@ jobs:
 
           # If nothing relevant changed (PR touching only root README, etc.),
           # declare success regardless of other jobs.
-          if [[ '${{ needs.changed.outputs.codex }}' != 'true' && '${{ needs.changed.outputs.workflows }}' != 'true' && '${{ github.event_name }}' != 'push' ]]; then
+          if [[ '${{ needs.changed.outputs.kardashev }}' != 'true' && '${{ needs.changed.outputs.workflows }}' != 'true' && '${{ github.event_name }}' != 'push' ]]; then
             echo 'No relevant changes -> CI not required.'
             exit 0
           fi

@@ -13,7 +13,7 @@ import {
   startResponsesTestProxy,
 } from "./responsesProxy";
 
-const codexExecPath = path.join(process.cwd(), "..", "..", "codex-rs", "target", "debug", "codex");
+const codexExecPath = path.join(process.cwd(), "..", "..", "kardashev-rs", "target", "debug", "codex");
 
 describe("Codex", () => {
   it("returns thread events", async () => {
@@ -192,7 +192,7 @@ describe("Codex", () => {
       const text = payload!.json.text;
       expect(text).toBeDefined();
       expect(text?.format).toEqual({
-        name: "codex_output_schema",
+        name: "kardashev_output_schema",
         type: "json_schema",
         strict: true,
         schema,

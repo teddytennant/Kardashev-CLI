@@ -6,7 +6,7 @@ Codex can automatically discover reusable "skills" you keep on disk. A skill is 
 
 ## Where skills live
 
-- Location (v1): `~/.codex/skills/**/SKILL.md` (recursive). Hidden entries and symlinks are skipped. Only files named exactly `SKILL.md` count.
+- Location (v1): `~/.kardashev/skills/**/SKILL.md` (recursive). Hidden entries and symlinks are skipped. Only files named exactly `SKILL.md` count.
 - Sorting: rendered by name, then path for stability.
 
 ## File format
@@ -29,7 +29,7 @@ Codex can automatically discover reusable "skills" you keep on disk. A skill is 
 
 ## Create a skill
 
-1. Create `~/.codex/skills/<skill-name>/`.
+1. Create `~/.kardashev/skills/<skill-name>/`.
 2. Add `SKILL.md`:
 
    ```
@@ -48,8 +48,8 @@ Codex can automatically discover reusable "skills" you keep on disk. A skill is 
 ## Example
 
 ```
-mkdir -p ~/.codex/skills/pdf-processing
-cat <<'SKILL_EXAMPLE' > ~/.codex/skills/pdf-processing/SKILL.md
+mkdir -p ~/.kardashev/skills/pdf-processing
+cat <<'SKILL_EXAMPLE' > ~/.kardashev/skills/pdf-processing/SKILL.md
 ---
 name: pdf-processing
 description: Extract text and tables from PDFs; use when PDFs, forms, or document extraction are mentioned.

@@ -3,23 +3,23 @@
 Currently, we made Codex binaries available in three places:
 
 - GitHub Releases https://github.com/openai/codex/releases/
-- `@openai/codex` on npm: https://www.npmjs.com/package/@openai/codex
+- `@kardashev/cli` on npm: https://www.npmjs.com/package/@kardashev/cli
 - `codex` on Homebrew: https://formulae.brew.sh/cask/codex
 
 # Cutting a Release
 
-Run the `codex-rs/scripts/create_github_release` script in the repository to publish a new release. The script will choose the appropriate version number depending on the type of release you are creating.
+Run the `kardashev-rs/scripts/create_github_release` script in the repository to publish a new release. The script will choose the appropriate version number depending on the type of release you are creating.
 
 To cut a new alpha release from `main` (feel free to cut alphas liberally):
 
 ```
-./codex-rs/scripts/create_github_release --publish-alpha
+./kardashev-rs/scripts/create_github_release --publish-alpha
 ```
 
 To cut a new _public_ release from `main` (which requires more caution), run:
 
 ```
-./codex-rs/scripts/create_github_release --publish-release
+./kardashev-rs/scripts/create_github_release --publish-release
 ```
 
 TIP: Add the `--dry-run` flag to report the next version number for the respective release and exit.

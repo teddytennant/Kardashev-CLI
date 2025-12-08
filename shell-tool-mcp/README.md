@@ -1,6 +1,6 @@
-# @openai/codex-shell-tool-mcp
+# @kardashev/cli-shell-tool-mcp
 
-This package wraps the `codex-exec-mcp-server` binary and its helpers so that the shell MCP can be invoked via `npx @openai/codex-shell-tool-mcp`. It bundles:
+This package wraps the `codex-exec-mcp-server` binary and its helpers so that the shell MCP can be invoked via `npx @kardashev/cli-shell-tool-mcp`. It bundles:
 
 - `codex-exec-mcp-server` and `codex-execve-wrapper` built for macOS (arm64, x64) and Linux (musl arm64, musl x64).
 - A patched Bash that honors `BASH_EXEC_WRAPPER`, built for multiple glibc baselines (Ubuntu 24.04/22.04/20.04, Debian 12/11, CentOS-like 9) and macOS (15/14/13).
@@ -9,7 +9,7 @@ This package wraps the `codex-exec-mcp-server` binary and its helpers so that th
 ## Usage
 
 ```bash
-npx @openai/codex-shell-tool-mcp --help
+npx @kardashev/cli-shell-tool-mcp --help
 ```
 
 The launcher selects a Rust target triple based on the host and chooses the closest Bash variant by inspecting `/etc/os-release` on Linux or the Darwin major version on macOS.

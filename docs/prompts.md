@@ -4,7 +4,7 @@ Custom prompts turn your repeatable instructions into reusable slash commands, s
 
 ### Where prompts live
 
-- Location: store prompts in `$CODEX_HOME/prompts/` (defaults to `~/.codex/prompts/`). Set `CODEX_HOME` if you want to use a different folder.
+- Location: store prompts in `$KARDASHEV_HOME/prompts/` (defaults to `~/.kardashev/prompts/`). Set `KARDASHEV_HOME` if you want to use a different folder.
 - File type: Codex only loads `.md` files. Non-Markdown files are ignored. Both regular files and symlinks to Markdown files are supported.
 - Naming: The filename (without `.md`) becomes the prompt name. A file called `review.md` registers the prompt `review`.
 - Refresh: Prompts are loaded when a session starts. Restart Codex (or start a new session) after adding or editing files.
@@ -44,7 +44,7 @@ Custom prompts turn your repeatable instructions into reusable slash commands, s
 
 ### Example 1: Basic named arguments
 
-**File**: `~/.codex/prompts/ticket.md`
+**File**: `~/.kardashev/prompts/ticket.md`
 
 ```markdown
 ---
@@ -71,7 +71,7 @@ Please write a concise commit message for ticket JIRA-1234: Fix login bug
 
 ### Example 2: Mixed positional and named arguments
 
-**File**: `~/.codex/prompts/review.md`
+**File**: `~/.kardashev/prompts/review.md`
 
 ```markdown
 ---

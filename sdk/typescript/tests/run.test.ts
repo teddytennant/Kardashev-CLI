@@ -17,7 +17,7 @@ import {
   SseResponseBody,
 } from "./responsesProxy";
 
-const codexExecPath = path.join(process.cwd(), "..", "..", "codex-rs", "target", "debug", "codex");
+const codexExecPath = path.join(process.cwd(), "..", "..", "kardashev-rs", "target", "debug", "codex");
 
 describe("Codex", () => {
   it("returns thread events", async () => {
@@ -348,7 +348,7 @@ describe("Codex", () => {
     }
   });
 
-  it("allows overriding the env passed to the Codex CLI", async () => {
+  it("allows overriding the env passed to the Kardashev CLI", async () => {
     const { url, close } = await startResponsesTestProxy({
       statusCode: 200,
       responseBodies: [
@@ -468,7 +468,7 @@ describe("Codex", () => {
       const text = payload!.json.text;
       expect(text).toBeDefined();
       expect(text?.format).toEqual({
-        name: "codex_output_schema",
+        name: "kardashev_output_schema",
         type: "json_schema",
         strict: true,
         schema,
@@ -647,9 +647,9 @@ describe("Codex", () => {
       expect(requests.length).toBeGreaterThan(0);
       const originatorHeader = requests[0]!.headers["originator"];
       if (Array.isArray(originatorHeader)) {
-        expect(originatorHeader).toContain("codex_sdk_ts");
+        expect(originatorHeader).toContain("kardashev_sdk_ts");
       } else {
-        expect(originatorHeader).toBe("codex_sdk_ts");
+        expect(originatorHeader).toBe("kardashev_sdk_ts");
       }
     } finally {
       await close();

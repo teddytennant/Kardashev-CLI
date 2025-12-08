@@ -9,12 +9,12 @@ on:
 jobs:
   gather-duplicates:
     name: Identify potential duplicates
-    if: ${{ github.event.action == 'opened' || (github.event.action == 'labeled' && github.event.label.name == 'codex-deduplicate') }}
+    if: ${{ github.event.action == 'opened' || (github.event.action == 'labeled' && github.event.label.name == 'kardashev-deduplicate') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
     outputs:
-      codex_output: ${{ steps.codex.outputs.final-message }}
+      kardashev_output: ${{ steps.kardashev.outputs.final-message }}
     steps:
       - uses: actions/checkout@v6
 
@@ -24,8 +24,8 @@ jobs:
         run: |
           set -eo pipefail
 
-          CURRENT_ISSUE_FILE=codex-current-issue.json
-          EXISTING_ISSUES_FILE=codex-existing-issues.json
+          CURRENT_ISSUE_FILE=kardashev-current-issue.json
+          EXISTING_ISSUES_FILE=kardashev-existing-issues.json
 
           gh issue list --repo "${{ github.repository }}" \
             --json number,title,body,createdAt \
@@ -41,8 +41,8 @@ jobs:
             | jq '.' \
             > "$CURRENT_ISSUE_FILE"
 
-      - id: codex
-        uses: openai/codex-action@main
+      - id: kardashev
+        uses: openai/kardashev-action@main
         with:
           openai-api-key: ${{ secrets.CODEX_OPENAI_API_KEY }}
           allow-users: "*"
@@ -50,8 +50,8 @@ jobs:
             You are an assistant that triages new GitHub issues by identifying potential duplicates.
 
             You will receive the following JSON files located in the current working directory:
-            - `codex-current-issue.json`: JSON object describing the newly created issue (fields: number, title, body).
-            - `codex-existing-issues.json`: JSON array of recent issues (each element includes number, title, body, createdAt).
+            - `kardashev-current-issue.json`: JSON object describing the newly created issue (fields: number, title, body).
+            - `kardashev-existing-issues.json`: JSON array of recent issues (each element includes number, title, body, createdAt).
 
             Instructions:
             - Compare the current issue against the existing issues to find up to five that appear to describe the same underlying problem or request.
@@ -88,7 +88,7 @@ jobs:
       - name: Comment on issue
         uses: actions/github-script@v8
         env:
-          CODEX_OUTPUT: ${{ needs.gather-duplicates.outputs.codex_output }}
+          CODEX_OUTPUT: ${{ needs.gather-duplicates.outputs.kardashev_output }}
         with:
           github-token: ${{ github.token }}
           script: |
@@ -120,7 +120,7 @@ jobs:
               '',
               ...filteredIssues.map((value) => `- #${String(value)}`),
               '',
-              '*Powered by [Codex Action](https://github.com/openai/codex-action)*'];
+              '*Powered by [Codex Action](https://github.com/openai/kardashev-action)*'];
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
@@ -129,11 +129,11 @@ jobs:
               body: lines.join("\n"),
             });
 
-      - name: Remove codex-deduplicate label
-        if: ${{ always() && github.event.action == 'labeled' && github.event.label.name == 'codex-deduplicate' }}
+      - name: Remove kardashev-deduplicate label
+        if: ${{ always() && github.event.action == 'labeled' && github.event.label.name == 'kardashev-deduplicate' }}
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          gh issue edit "${{ github.event.issue.number }}" --remove-label codex-deduplicate || true
-          echo "Attempted to remove label: codex-deduplicate"
+          gh issue edit "${{ github.event.issue.number }}" --remove-label kardashev-deduplicate || true
+          echo "Attempted to remove label: kardashev-deduplicate"

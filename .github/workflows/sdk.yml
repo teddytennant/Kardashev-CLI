@@ -26,9 +26,9 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@1.90
 
-      - name: build codex
-        run: cargo build --bin codex
-        working-directory: codex-rs
+      - name: build kardashev
+        run: cargo build --bin kardashev
+        working-directory: kardashev-rs
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile

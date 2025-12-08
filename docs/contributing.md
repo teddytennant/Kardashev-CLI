@@ -25,7 +25,7 @@ If you want to add a new feature or change the behavior of an existing one, plea
 
 - Fill in the PR template (or include similar information) - **What? Why? How?**
 - Include a link to a bug report or enhancement request in the issue tracker
-- Run **all** checks locally. Use the root `just` helpers so you stay consistent with the rest of the workspace: `just fmt`, `just fix -p <crate>` for the crate you touched, and the relevant tests (e.g., `cargo test -p codex-tui` or `just test` if you need a full sweep). CI failures that could have been caught locally slow down the process.
+- Run **all** checks locally. Use the root `just` helpers so you stay consistent with the rest of the workspace: `just fmt`, `just fix -p <crate>` for the crate you touched, and the relevant tests (e.g., `cargo test -p kardashev-tui` or `just test` if you need a full sweep). CI failures that could have been caught locally slow down the process.
 - Make sure your branch is up-to-date with `main` and that you have resolved merge conflicts.
 - Mark the PR as **Ready for review** only when you believe it is in a merge-able state.
 
@@ -46,7 +46,7 @@ If you want to add a new feature or change the behavior of an existing one, plea
 
 If you run into problems setting up the project, would like feedback on an idea, or just want to say _hi_ - please open a Discussion or jump into the relevant issue. We are happy to help.
 
-Together we can make Codex CLI an incredible tool. **Happy hacking!** :rocket:
+Together we can make Kardashev CLI an incredible tool. **Happy hacking!** :rocket:
 
 ### Contributor license agreement (CLA)
 
@@ -79,10 +79,10 @@ Make sure you are on `main` and have no local changes. Then run:
 
 ```shell
 VERSION=0.2.0  # Can also be 0.2.0-alpha.1 or any valid Rust version.
-./codex-rs/scripts/create_github_release.sh "$VERSION"
+./kardashev-rs/scripts/create_github_release.sh "$VERSION"
 ```
 
-This will make a local commit on top of `main` with `version` set to `$VERSION` in `codex-rs/Cargo.toml` (note that on `main`, we leave the version as `version = "0.0.0"`).
+This will make a local commit on top of `main` with `version` set to `$VERSION` in `kardashev-rs/Cargo.toml` (note that on `main`, we leave the version as `version = "0.0.0"`).
 
 This will push the commit using the tag `rust-v${VERSION}`, which in turn kicks off [the release workflow](../.github/workflows/rust-release.yml). This will create a new GitHub Release named `$VERSION`.
 

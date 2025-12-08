@@ -7,7 +7,7 @@ The TypeScript SDK wraps the bundled `codex` binary. It spawns the CLI and excha
 ## Installation
 
 ```bash
-npm install @openai/codex-sdk
+npm install @kardashev/cli-sdk
 ```
 
 Requires Node.js 18+.
@@ -15,7 +15,7 @@ Requires Node.js 18+.
 ## Quickstart
 
 ```typescript
-import { Codex } from "@openai/codex-sdk";
+import { Codex } from "@kardashev/cli-sdk";
 
 const codex = new Codex();
 const thread = codex.startThread();
@@ -85,7 +85,7 @@ console.log(turn.finalResponse);
 
 ### Attaching images
 
-Provide structured input entries when you need to include images alongside text. Text entries are concatenated into the final prompt while image entries are passed to the Codex CLI via `--image`.
+Provide structured input entries when you need to include images alongside text. Text entries are concatenated into the final prompt while image entries are passed to the Kardashev CLI via `--image`.
 
 ```typescript
 const turn = await thread.run([
@@ -97,10 +97,10 @@ const turn = await thread.run([
 
 ### Resuming an existing thread
 
-Threads are persisted in `~/.codex/sessions`. If you lose the in-memory `Thread` object, reconstruct it with `resumeThread()` and keep going.
+Threads are persisted in `~/.kardashev/sessions`. If you lose the in-memory `Thread` object, reconstruct it with `resumeThread()` and keep going.
 
 ```typescript
-const savedThreadId = process.env.CODEX_THREAD_ID!;
+const savedThreadId = process.env.KARDASHEV_THREAD_ID!;
 const thread = codex.resumeThread(savedThreadId);
 await thread.run("Implement the fix");
 ```
@@ -116,9 +116,9 @@ const thread = codex.startThread({
 });
 ```
 
-### Controlling the Codex CLI environment
+### Controlling the Kardashev CLI environment
 
-By default, the Codex CLI inherits the Node.js process environment. Provide the optional `env` parameter when instantiating the
+By default, the Kardashev CLI inherits the Node.js process environment. Provide the optional `env` parameter when instantiating the
 `Codex` client to fully control which variables the CLI receives—useful for sandboxed hosts like Electron apps.
 
 ```typescript
@@ -129,5 +129,5 @@ const codex = new Codex({
 });
 ```
 
-The SDK still injects its required variables (such as `OPENAI_BASE_URL` and `CODEX_API_KEY`) on top of the environment you
+The SDK still injects its required variables (such as `OPENAI_BASE_URL` and `KARDASHEV_API_KEY`) on top of the environment you
 provide.
