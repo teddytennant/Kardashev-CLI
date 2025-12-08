@@ -185,9 +185,9 @@ dependencies = [
  "base64",
  "chrono",
  "codex-app-server-protocol",
- "codex-core",
- "codex-protocol",
  "core_test_support",
+ "kardashev-core",
+ "kardashev-protocol",
  "serde",
  "serde_json",
  "shlex",
@@ -844,32 +844,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "codex-api"
-version = "0.0.0"
-dependencies = [
- "anyhow",
- "assert_matches",
- "async-trait",
- "bytes",
- "codex-client",
- "codex-protocol",
- "eventsource-stream",
- "futures",
- "http",
- "pretty_assertions",
- "regex-lite",
- "reqwest",
- "serde",
- "serde_json",
- "thiserror 2.0.17",
- "tokio",
- "tokio-test",
- "tokio-util",
- "tracing",
- "wiremock",
-]
-
-[[package]]
 name = "codex-app-server"
 version = "0.0.0"
 dependencies = [
@@ -880,15 +854,15 @@ dependencies = [
  "chrono",
  "codex-app-server-protocol",
  "codex-arg0",
- "codex-backend-client",
  "codex-common",
- "codex-core",
  "codex-feedback",
  "codex-file-search",
  "codex-login",
- "codex-protocol",
  "codex-utils-json-to-toml",
  "core_test_support",
+ "kardashev-backend-client",
+ "kardashev-core",
+ "kardashev-protocol",
  "mcp-types",
  "opentelemetry-appender-tracing",
  "os_info",
@@ -913,7 +887,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "clap",
- "codex-protocol",
+ "kardashev-protocol",
  "mcp-types",
  "pretty_assertions",
  "schemars 0.8.22",
@@ -932,7 +906,7 @@ dependencies = [
  "anyhow",
  "clap",
  "codex-app-server-protocol",
- "codex-protocol",
+ "kardashev-protocol",
  "serde",
  "serde_json",
  "uuid",
@@ -959,9 +933,9 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "codex-apply-patch",
- "codex-core",
  "codex-linux-sandbox",
  "dotenvy",
+ "kardashev-core",
  "tempfile",
  "tokio",
 ]
@@ -977,100 +951,18 @@ dependencies = [
 ]
 
 [[package]]
-name = "codex-backend-client"
-version = "0.0.0"
-dependencies = [
- "anyhow",
- "codex-backend-openapi-models",
- "codex-core",
- "codex-protocol",
- "pretty_assertions",
- "reqwest",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "codex-backend-openapi-models"
-version = "0.0.0"
-dependencies = [
- "serde",
- "serde_json",
- "serde_with",
-]
-
-[[package]]
 name = "codex-chatgpt"
 version = "0.0.0"
 dependencies = [
  "anyhow",
  "clap",
  "codex-common",
- "codex-core",
  "codex-git",
+ "kardashev-core",
  "serde",
  "serde_json",
  "tempfile",
  "tokio",
-]
-
-[[package]]
-name = "codex-cli"
-version = "0.0.0"
-dependencies = [
- "anyhow",
- "assert_cmd",
- "assert_matches",
- "clap",
- "clap_complete",
- "codex-app-server",
- "codex-app-server-protocol",
- "codex-arg0",
- "codex-chatgpt",
- "codex-cloud-tasks",
- "codex-common",
- "codex-core",
- "codex-exec",
- "codex-execpolicy",
- "codex-login",
- "codex-mcp-server",
- "codex-process-hardening",
- "codex-protocol",
- "codex-responses-api-proxy",
- "codex-rmcp-client",
- "codex-stdio-to-uds",
- "codex-tui",
- "codex-windows-sandbox",
- "ctor 0.5.0",
- "libc",
- "owo-colors",
- "predicates",
- "pretty_assertions",
- "regex-lite",
- "serde_json",
- "supports-color 3.0.2",
- "tempfile",
- "tokio",
- "toml",
- "tracing",
-]
-
-[[package]]
-name = "codex-client"
-version = "0.0.0"
-dependencies = [
- "async-trait",
- "bytes",
- "eventsource-stream",
- "futures",
- "http",
- "rand 0.9.2",
- "reqwest",
- "serde",
- "serde_json",
- "thiserror 2.0.17",
- "tokio",
- "tracing",
 ]
 
 [[package]]
@@ -1084,10 +976,10 @@ dependencies = [
  "clap",
  "codex-cloud-tasks-client",
  "codex-common",
- "codex-core",
  "codex-login",
- "codex-tui",
  "crossterm",
+ "kardashev-core",
+ "kardashev-tui",
  "owo-colors",
  "pretty_assertions",
  "ratatui",
@@ -1109,9 +1001,9 @@ dependencies = [
  "anyhow",
  "async-trait",
  "chrono",
- "codex-backend-client",
  "codex-git",
  "diffy",
+ "kardashev-backend-client",
  "serde",
  "serde_json",
  "thiserror 2.0.17",
@@ -1122,101 +1014,12 @@ name = "codex-common"
 version = "0.0.0"
 dependencies = [
  "clap",
- "codex-core",
  "codex-lmstudio",
  "codex-ollama",
- "codex-protocol",
+ "kardashev-core",
+ "kardashev-protocol",
  "serde",
  "toml",
-]
-
-[[package]]
-name = "codex-core"
-version = "0.0.0"
-dependencies = [
- "anyhow",
- "askama",
- "assert_cmd",
- "assert_matches",
- "async-channel",
- "async-trait",
- "base64",
- "chardetng",
- "chrono",
- "codex-api",
- "codex-app-server-protocol",
- "codex-apply-patch",
- "codex-arg0",
- "codex-async-utils",
- "codex-core",
- "codex-execpolicy",
- "codex-file-search",
- "codex-git",
- "codex-keyring-store",
- "codex-otel",
- "codex-protocol",
- "codex-rmcp-client",
- "codex-utils-pty",
- "codex-utils-readiness",
- "codex-utils-string",
- "codex-windows-sandbox",
- "core-foundation 0.9.4",
- "core_test_support",
- "ctor 0.5.0",
- "dirs",
- "dunce",
- "encoding_rs",
- "env-flags",
- "escargot",
- "eventsource-stream",
- "futures",
- "http",
- "image",
- "indexmap 2.12.0",
- "keyring",
- "landlock",
- "libc",
- "maplit",
- "mcp-types",
- "once_cell",
- "openssl-sys",
- "os_info",
- "predicates",
- "pretty_assertions",
- "rand 0.9.2",
- "regex",
- "regex-lite",
- "reqwest",
- "seccompiler",
- "serde",
- "serde_json",
- "serde_yaml",
- "serial_test",
- "sha1",
- "sha2",
- "shlex",
- "similar",
- "strum_macros 0.27.2",
- "tempfile",
- "test-case",
- "test-log",
- "thiserror 2.0.17",
- "time",
- "tokio",
- "tokio-test",
- "tokio-util",
- "toml",
- "toml_edit",
- "tracing",
- "tracing-test",
- "tree-sitter",
- "tree-sitter-bash",
- "url",
- "uuid",
- "walkdir",
- "which",
- "wildmatch",
- "wiremock",
 ]
 
 [[package]]
@@ -1228,9 +1031,9 @@ dependencies = [
  "clap",
  "codex-arg0",
  "codex-common",
- "codex-core",
- "codex-protocol",
  "core_test_support",
+ "kardashev-core",
+ "kardashev-protocol",
  "libc",
  "mcp-types",
  "opentelemetry-appender-tracing",
@@ -1259,9 +1062,9 @@ dependencies = [
  "assert_cmd",
  "async-trait",
  "clap",
- "codex-core",
  "codex-execpolicy",
  "exec_server_test_support",
+ "kardashev-core",
  "libc",
  "maplit",
  "path-absolutize",
@@ -1320,7 +1123,7 @@ name = "codex-feedback"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "codex-protocol",
+ "kardashev-protocol",
  "pretty_assertions",
  "sentry",
  "tracing-subscriber",
@@ -1368,7 +1171,7 @@ name = "codex-linux-sandbox"
 version = "0.0.0"
 dependencies = [
  "clap",
- "codex-core",
+ "kardashev-core",
  "landlock",
  "libc",
  "seccompiler",
@@ -1380,7 +1183,7 @@ dependencies = [
 name = "codex-lmstudio"
 version = "0.0.0"
 dependencies = [
- "codex-core",
+ "kardashev-core",
  "reqwest",
  "serde_json",
  "tokio",
@@ -1397,8 +1200,8 @@ dependencies = [
  "base64",
  "chrono",
  "codex-app-server-protocol",
- "codex-core",
  "core_test_support",
+ "kardashev-core",
  "rand 0.9.2",
  "reqwest",
  "serde",
@@ -1421,10 +1224,10 @@ dependencies = [
  "assert_cmd",
  "codex-arg0",
  "codex-common",
- "codex-core",
- "codex-protocol",
  "codex-utils-json-to-toml",
  "core_test_support",
+ "kardashev-core",
+ "kardashev-protocol",
  "mcp-types",
  "mcp_test_support",
  "os_info",
@@ -1447,8 +1250,8 @@ dependencies = [
  "assert_matches",
  "async-stream",
  "bytes",
- "codex-core",
  "futures",
+ "kardashev-core",
  "reqwest",
  "serde_json",
  "tokio",
@@ -1462,9 +1265,9 @@ version = "0.0.0"
 dependencies = [
  "chrono",
  "codex-app-server-protocol",
- "codex-protocol",
  "eventsource-stream",
  "http",
+ "kardashev-protocol",
  "opentelemetry",
  "opentelemetry-otlp",
  "opentelemetry-semantic-conventions",
@@ -1483,33 +1286,6 @@ name = "codex-process-hardening"
 version = "0.0.0"
 dependencies = [
  "libc",
-]
-
-[[package]]
-name = "codex-protocol"
-version = "0.0.0"
-dependencies = [
- "anyhow",
- "base64",
- "codex-git",
- "codex-utils-image",
- "icu_decimal",
- "icu_locale_core",
- "icu_provider",
- "mcp-types",
- "mime_guess",
- "pretty_assertions",
- "schemars 0.8.22",
- "serde",
- "serde_json",
- "serde_with",
- "strum 0.27.2",
- "strum_macros 0.27.2",
- "sys-locale",
- "tempfile",
- "tracing",
- "ts-rs",
- "uuid",
 ]
 
 [[package]]
@@ -1535,10 +1311,10 @@ dependencies = [
  "anyhow",
  "axum",
  "codex-keyring-store",
- "codex-protocol",
  "dirs",
  "escargot",
  "futures",
+ "kardashev-protocol",
  "keyring",
  "mcp-types",
  "oauth2",
@@ -1567,74 +1343,6 @@ dependencies = [
  "pretty_assertions",
  "tempfile",
  "uds_windows",
-]
-
-[[package]]
-name = "codex-tui"
-version = "0.0.0"
-dependencies = [
- "anyhow",
- "arboard",
- "assert_matches",
- "async-stream",
- "base64",
- "chrono",
- "clap",
- "codex-ansi-escape",
- "codex-app-server-protocol",
- "codex-arg0",
- "codex-backend-client",
- "codex-common",
- "codex-core",
- "codex-feedback",
- "codex-file-search",
- "codex-login",
- "codex-protocol",
- "codex-windows-sandbox",
- "color-eyre",
- "crossterm",
- "derive_more 2.0.1",
- "diffy",
- "dirs",
- "dunce",
- "image",
- "insta",
- "itertools 0.14.0",
- "lazy_static",
- "libc",
- "mcp-types",
- "opentelemetry-appender-tracing",
- "pathdiff",
- "pretty_assertions",
- "pulldown-cmark",
- "rand 0.9.2",
- "ratatui",
- "ratatui-macros",
- "regex-lite",
- "reqwest",
- "serde",
- "serde_json",
- "serial_test",
- "shlex",
- "strum 0.27.2",
- "strum_macros 0.27.2",
- "supports-color 3.0.2",
- "tempfile",
- "textwrap 0.16.2",
- "tokio",
- "tokio-stream",
- "tokio-util",
- "toml",
- "tracing",
- "tracing-appender",
- "tracing-subscriber",
- "tree-sitter-bash",
- "tree-sitter-highlight",
- "unicode-segmentation",
- "unicode-width 0.2.1",
- "url",
- "uuid",
- "vt100",
 ]
 
 [[package]]
@@ -1696,9 +1404,9 @@ name = "codex-windows-sandbox"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "codex-protocol",
  "dirs-next",
  "dunce",
+ "kardashev-protocol",
  "rand 0.8.5",
  "serde",
  "serde_json",
@@ -1835,8 +1543,8 @@ dependencies = [
  "anyhow",
  "assert_cmd",
  "base64",
- "codex-core",
- "codex-protocol",
+ "kardashev-core",
+ "kardashev-protocol",
  "notify",
  "regex-lite",
  "serde_json",
@@ -2511,7 +2219,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "assert_cmd",
- "codex-core",
+ "kardashev-core",
  "rmcp",
  "serde_json",
  "tokio",
@@ -3569,6 +3277,298 @@ dependencies = [
 ]
 
 [[package]]
+name = "kardashev-api"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "assert_matches",
+ "async-trait",
+ "bytes",
+ "eventsource-stream",
+ "futures",
+ "http",
+ "kardashev-client",
+ "kardashev-protocol",
+ "pretty_assertions",
+ "regex-lite",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.17",
+ "tokio",
+ "tokio-test",
+ "tokio-util",
+ "tracing",
+ "wiremock",
+]
+
+[[package]]
+name = "kardashev-backend-client"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "kardashev-backend-openapi-models",
+ "kardashev-core",
+ "kardashev-protocol",
+ "pretty_assertions",
+ "reqwest",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "kardashev-backend-openapi-models"
+version = "0.0.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "serde_with",
+]
+
+[[package]]
+name = "kardashev-cli"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "assert_cmd",
+ "assert_matches",
+ "clap",
+ "clap_complete",
+ "codex-app-server",
+ "codex-app-server-protocol",
+ "codex-arg0",
+ "codex-chatgpt",
+ "codex-cloud-tasks",
+ "codex-common",
+ "codex-exec",
+ "codex-execpolicy",
+ "codex-login",
+ "codex-mcp-server",
+ "codex-process-hardening",
+ "codex-responses-api-proxy",
+ "codex-rmcp-client",
+ "codex-stdio-to-uds",
+ "codex-windows-sandbox",
+ "ctor 0.5.0",
+ "kardashev-core",
+ "kardashev-protocol",
+ "kardashev-tui",
+ "libc",
+ "owo-colors",
+ "predicates",
+ "pretty_assertions",
+ "regex-lite",
+ "serde_json",
+ "supports-color 3.0.2",
+ "tempfile",
+ "tokio",
+ "toml",
+ "tracing",
+]
+
+[[package]]
+name = "kardashev-client"
+version = "0.0.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "eventsource-stream",
+ "futures",
+ "http",
+ "rand 0.9.2",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.17",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "kardashev-core"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "askama",
+ "assert_cmd",
+ "assert_matches",
+ "async-channel",
+ "async-trait",
+ "base64",
+ "chardetng",
+ "chrono",
+ "codex-app-server-protocol",
+ "codex-apply-patch",
+ "codex-arg0",
+ "codex-async-utils",
+ "codex-execpolicy",
+ "codex-file-search",
+ "codex-git",
+ "codex-keyring-store",
+ "codex-otel",
+ "codex-rmcp-client",
+ "codex-utils-pty",
+ "codex-utils-readiness",
+ "codex-utils-string",
+ "codex-windows-sandbox",
+ "core-foundation 0.9.4",
+ "core_test_support",
+ "ctor 0.5.0",
+ "dirs",
+ "dunce",
+ "encoding_rs",
+ "env-flags",
+ "escargot",
+ "eventsource-stream",
+ "futures",
+ "http",
+ "image",
+ "indexmap 2.12.0",
+ "kardashev-api",
+ "kardashev-core",
+ "kardashev-protocol",
+ "keyring",
+ "landlock",
+ "libc",
+ "maplit",
+ "mcp-types",
+ "once_cell",
+ "openssl-sys",
+ "os_info",
+ "predicates",
+ "pretty_assertions",
+ "rand 0.9.2",
+ "regex",
+ "regex-lite",
+ "reqwest",
+ "seccompiler",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "serial_test",
+ "sha1",
+ "sha2",
+ "shlex",
+ "similar",
+ "strum_macros 0.27.2",
+ "tempfile",
+ "test-case",
+ "test-log",
+ "thiserror 2.0.17",
+ "time",
+ "tokio",
+ "tokio-test",
+ "tokio-util",
+ "toml",
+ "toml_edit",
+ "tracing",
+ "tracing-test",
+ "tree-sitter",
+ "tree-sitter-bash",
+ "url",
+ "uuid",
+ "walkdir",
+ "which",
+ "wildmatch",
+ "wiremock",
+]
+
+[[package]]
+name = "kardashev-protocol"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "base64",
+ "codex-git",
+ "codex-utils-image",
+ "icu_decimal",
+ "icu_locale_core",
+ "icu_provider",
+ "mcp-types",
+ "mime_guess",
+ "pretty_assertions",
+ "schemars 0.8.22",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "strum 0.27.2",
+ "strum_macros 0.27.2",
+ "sys-locale",
+ "tempfile",
+ "tracing",
+ "ts-rs",
+ "uuid",
+]
+
+[[package]]
+name = "kardashev-tui"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "arboard",
+ "assert_matches",
+ "async-stream",
+ "base64",
+ "chrono",
+ "clap",
+ "codex-ansi-escape",
+ "codex-app-server-protocol",
+ "codex-arg0",
+ "codex-common",
+ "codex-feedback",
+ "codex-file-search",
+ "codex-login",
+ "codex-windows-sandbox",
+ "color-eyre",
+ "crossterm",
+ "derive_more 2.0.1",
+ "diffy",
+ "dirs",
+ "dunce",
+ "image",
+ "insta",
+ "itertools 0.14.0",
+ "kardashev-backend-client",
+ "kardashev-core",
+ "kardashev-protocol",
+ "lazy_static",
+ "libc",
+ "mcp-types",
+ "opentelemetry-appender-tracing",
+ "pathdiff",
+ "pretty_assertions",
+ "pulldown-cmark",
+ "rand 0.9.2",
+ "ratatui",
+ "ratatui-macros",
+ "regex-lite",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serial_test",
+ "shlex",
+ "strum 0.27.2",
+ "strum_macros 0.27.2",
+ "supports-color 3.0.2",
+ "tempfile",
+ "textwrap 0.16.2",
+ "tokio",
+ "tokio-stream",
+ "tokio-util",
+ "toml",
+ "tracing",
+ "tracing-appender",
+ "tracing-subscriber",
+ "tree-sitter-bash",
+ "tree-sitter-highlight",
+ "unicode-segmentation",
+ "unicode-width 0.2.1",
+ "url",
+ "uuid",
+ "vt100",
+]
+
+[[package]]
 name = "keyring"
 version = "3.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3811,9 +3811,9 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "assert_cmd",
- "codex-core",
  "codex-mcp-server",
  "core_test_support",
+ "kardashev-core",
  "mcp-types",
  "os_info",
  "pretty_assertions",
@@ -4387,9 +4387,9 @@ dependencies = [
 
 [[package]]
 name = "opentelemetry-semantic-conventions"
-version = "0.30.0"
+version = "0.31.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "83d059a296a47436748557a353c5e6c5705b9470ef6c95cfc52c21a8814ddac2"
+checksum = "e62e29dfe041afb8ed2a6c9737ab57db4907285d999ef8ad3a59092a36bdc846"
 
 [[package]]
 name = "opentelemetry_sdk"
