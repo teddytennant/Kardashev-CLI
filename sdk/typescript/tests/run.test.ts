@@ -382,8 +382,8 @@ describe("Codex", () => {
       expect(spawnEnv.CUSTOM_ENV).toBe("custom");
       expect(spawnEnv.CODEX_ENV_SHOULD_NOT_LEAK).toBeUndefined();
       expect(spawnEnv.OPENAI_BASE_URL).toBe(url);
-      expect(spawnEnv.CODEX_API_KEY).toBe("test");
-      expect(spawnEnv.CODEX_INTERNAL_ORIGINATOR_OVERRIDE).toBeDefined();
+      expect(spawnEnv.KARDASHEV_API_KEY).toBe("test");
+      expect(spawnEnv.KARDASHEV_INTERNAL_ORIGINATOR_OVERRIDE).toBeDefined();
     } finally {
       delete process.env.CODEX_ENV_SHOULD_NOT_LEAK;
       restore();
