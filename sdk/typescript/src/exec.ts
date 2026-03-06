@@ -36,7 +36,7 @@ export type CodexExecArgs = {
   approvalPolicy?: ApprovalMode;
 };
 
-const INTERNAL_ORIGINATOR_ENV = "CODEX_INTERNAL_ORIGINATOR_OVERRIDE";
+const INTERNAL_ORIGINATOR_ENV = "KARDASHEV_INTERNAL_ORIGINATOR_OVERRIDE";
 const TYPESCRIPT_SDK_ORIGINATOR = "kardashev_sdk_ts";
 
 export class CodexExec {
@@ -123,7 +123,7 @@ export class CodexExec {
       env.OPENAI_BASE_URL = args.baseUrl;
     }
     if (args.apiKey) {
-      env.CODEX_API_KEY = args.apiKey;
+      env.KARDASHEV_API_KEY = args.apiKey;
     }
 
     const child = spawn(this.executablePath, commandArgs, {
