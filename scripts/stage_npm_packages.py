@@ -133,7 +133,7 @@ def main() -> int:
     vendor_src: Path | None = None
     resolved_head_sha: str | None = None
 
-    final_messsages = []
+    final_messages = []
 
     try:
         if native_components:
@@ -172,12 +172,12 @@ def main() -> int:
                 if not args.keep_staging_dirs:
                     shutil.rmtree(staging_dir, ignore_errors=True)
 
-            final_messsages.append(f"Staged {package} at {pack_output}")
+            final_messages.append(f"Staged {package} at {pack_output}")
     finally:
         if vendor_temp_root is not None and not args.keep_staging_dirs:
             shutil.rmtree(vendor_temp_root, ignore_errors=True)
 
-    for msg in final_messsages:
+    for msg in final_messages:
         print(msg)
 
     return 0
